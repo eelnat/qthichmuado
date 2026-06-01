@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Qthichmuado | Link in Bio</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Nunito', 'sans-serif'] },
+                    colors: {
+                        pastel: { pink: '#FFB7B2', blue: '#B5EAD7', green: '#C7CEEA', yellow: '#FFDAC1', purple: '#E2F0CB' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Đưa màu nền bên ngoài về tông trung tính sáng hoặc trong suốt nhẹ để làm nổi bật chiếc thẻ ở giữa */
+        body {
+            background-color: #f8f9fa; /* Màu nền nhạt, sạch sẽ ở ngoài cùng */
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+        }
+
+        /* Tông màu nền cực kỳ mộng mơ giống ảnh mẫu (Holographic Pastel), NHƯNG ĐƯA VÀO TRONG THẺ */
+        .holographic-bg {
+            background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 50%, #ffecd2 100%);
+            background-size: 200% 200%;
+            animation: gradientBG 8s ease infinite;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.8;
+            /* Thêm hiệu ứng nhiễu nhẹ (noise) để giống ảnh mẫu hơn */
+            filter: contrast(1.1) brightness(1.05);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism cực trong trẻo - Áp dụng cho Panel chính chứa mọi thứ */
+        .glass-panel {
+            /* Loại bỏ background trắng mờ cũ, để nền holographic hiện lên */
+            background: transparent;
+            /* Box shadow nhẹ nhàng để tách thẻ khỏi nền body */
+            box-shadow: 0 15px 50px -5px rgba(0, 0, 0, 0.1), 0 8px 20px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Các thẻ con bên trong (Avatar, Sản phẩm) cần có nền kính riêng biệt để đọc chữ rõ ràng */
+        .glass-content-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5); /* Đậm hơn nền tổng thể một chút */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Hover Glow Effect cho thẻ sản phẩm */
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(255, 154, 158, 0.5), 0 0 20px rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 1);
+            border-color: #FF9A9E;
+        }
+
+        .avatar-float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 
+            0% { transform: translateY(0px) rotate(0deg); } 
+            50% { transform: translateY(-12px) rotate(3deg); } 
+            100% { transform: translateY(0px) rotate(0deg); } 
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 154, 158, 0.8); border-radius: 10px; }
+
+        /* ================= HIỆU ỨNG TÂN TIẾN ================= */
+
+        /* 1. Tuyết phát sáng nhấp nháy */
+        .bling-star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: twinkle fall linear infinite;
+            z-index: 1;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); box-shadow: 0 0 0 white; }
+            50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255, 200, 220, 0.8); }
+        }
+        @keyframes fall {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        /* 2. Lá Sakura rơi xoay tròn */
+        .sakura-petal {
+            position: absolute;
+            background: linear-gradient(135deg, #ffc0cb, #ffb6c1);
+            border-radius: 15px 0px 15px 0px; /* Hình cánh hoa */
+            pointer-events: none;
+            animation: fall-sakura linear infinite, sway ease-in-out infinite alternate;
+            z-index: 0;
+            opacity: 0.8;
+            box-shadow: 0 2px 5px rgba(255, 182, 193, 0.5);
+        }
+        
+        @keyframes fall-sakura {
+            0% { top: -10%; transform: rotate(0deg); }
+            100% { top: 110%; transform: rotate(360deg); }
+        }
+        
+        @keyframes sway {
+            0% { margin-left: 0px; }
+            100% { margin-left: 50px; }
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased p-4 sm:p-8 relative">
+
+    <main class="w-full max-w-md mx-auto relative z-10">
+        
+        <!-- THẺ TRUNG TÂM - GIỜ ĐÂY CHỨA TOÀN BỘ HIỆU ỨNG -->
+        <div class="glass-panel rounded-[2.5rem] p-6 pb-10 relative overflow-hidden ">
+            
+            <!-- 1. NỀN HOLOGRAPHIC (Chỉ nằm gọn trong thẻ) -->
+            <div class="holographic-bg"></div>
+            
+            <!-- 2. CONTAINER CHỨA TUYẾT & HOA (Chỉ nằm gọn trong thẻ) -->
+            <div id="visual-effects" class="absolute inset-0 pointer-events-none z-0"></div>
+
+            <!-- Blobs trang trí tạo khối mờ đằng sau (tùy chọn, có thể bỏ nếu nền holographic đủ đẹp) -->
+            <div class="absolute top-[-10%] left-[-10%] w-48 h-48 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-70 animate-pulse z-0"></div>
+
+            <!-- HEADER -->
+            <header class="flex flex-col items-center text-center mt-2 mb-8 relative z-10 fade-up">
+                <div class="relative avatar-float mb-5 mt-2">
+                    <!-- Mình thêm viền glow màu hồng cho Avatar -->
+                    <img src="avatar.jpeg" alt="Avatar" class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-[0_0_25px_rgba(255,154,158,0.6)]">
+                    <div class="absolute -bottom-2 -right-3 bg-gradient-to-r from-pink-300 to-purple-300 text-white text-[13px] font-black px-3 py-1.5 rounded-full border-2 border-white shadow-lg transform rotate-12">
+                        ✨ Hello!
+                    </div>
+                </div>
+
+                <h1 class="text-3xl font-black tracking-tight mb-2 text-gray-800 drop-shadow-sm">@Qthichmuado</h1>
+                <p class="text-[15px] font-bold text-gray-700 mb-5 px-4 leading-relaxed glass-content-card py-1.5 rounded-2xl shadow-sm">
+                    Những món toai hay dùng nè 🎀
+                </p>
+
+                <!-- Social Icons cực bốc -->
+                <div class="flex gap-4 mb-2">
+                    <a href="https://www.tiktok.com/@qthichmuado" class="w-11 h-11 rounded-full bg-gradient-to-tr from-gray-900 to-gray-700 flex items-center justify-center text-xl text-white hover:scale-110 transition-transform shadow-md hover:shadow-[0_0_15px_rgba(0,0,0,0.3)]"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100076179219794&locale=vi_VN" class="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-600 to-blue-400 flex items-center justify-center text-xl text-white hover:scale-110 transition-transform shadow-md hover:shadow-[0_0_15px_rgba(37,99,235,0.4)]"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </header>
+
+            <!-- LƯỚI SẢN PHẨM -->
+            <div class="relative z-10">
+                <div class="flex items-center justify-center gap-3 mb-6 fade-up">
+                    <div class="h-[2px] w-10 bg-gradient-to-r from-transparent to-white/70 rounded-full"></div>
+                    <span class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-700 glass-content-card px-3 py-1 rounded-full">Món Đồ Chân Ái</span>
+                    <div class="h-[2px] w-10 bg-gradient-to-l from-transparent to-white/70 rounded-full"></div>
+                </div>
+
+                <!-- Vùng chứa Grid 2 cột -->
+                <div id="product-grid" class="grid grid-cols-2 gap-4">
+                    <!-- Loading state đẹp hơn -->
+                    <div class="col-span-2 flex flex-col items-center justify-center py-8 text-pink-500 fade-up">
+                        <i class="fas fa-heart fa-beat text-3xl mb-2 text-pink-400"></i>
+                        <span class="text-sm font-bold animate-pulse">Đang mang đồ xinh ra kệ...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10 text-[11px] text-gray-600 font-bold fade-up relative z-10 glass-content-card mx-auto py-1 px-4 rounded-full max-w-max">
+                Made with 💖 by @Qthichmuado
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Link Google Sheet của bạn
+        const GOOGLE_SHEET_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTeaTZaKLHjxkgO8lvKmtT64EBlErX9mf8l5xipn9anrxtLZUib2WFJD6fX5HrTzCBEqDrkVj0Al1xz/pub?output=tsv"; 
+
+        // Data dự phòng
+        let products = [
+            { Ten: "Đang tải dữ liệu...", MoTa: "Vui lòng đợi xíu nha", LinkAnh: "", LinkShopee: "#" }
+        ];
+
+        function parseTSV(tsv) {
+            const lines = tsv.split('\n');
+            const headers = lines[0].split('\t').map(h => h.trim());
+            const result = [];
+            for(let i=1; i<lines.length; i++) {
+                if(!lines[i].trim()) continue;
+                const currentline = lines[i].split('\t');
+                const obj = {};
+                for(let j=0; j<headers.length; j++) {
+                    obj[headers[j]] = currentline[j] ? currentline[j].trim() : "";
+                }
+                result.push(obj);
+            }
+            return result;
+        }
+
+        function renderProducts(items) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = ''; 
+            
+            // Bộ màu siêu ngọt ngào cho badge số
+            const badgeColors = [
+                'bg-pink-400 text-white shadow-[0_0_10px_rgba(244,114,182,0.6)]', 
+                'bg-purple-400 text-white shadow-[0_0_10px_rgba(192,132,252,0.6)]', 
+                'bg-rose-400 text-white shadow-[0_0_10px_rgba(251,113,133,0.6)]', 
+                'bg-fuchsia-400 text-white shadow-[0_0_10px_rgba(232,121,249,0.6)]'
+            ];
+
+            items.forEach((item, index) => {
+                if(!item.Ten) return; 
+                const colorClass = badgeColors[index % badgeColors.length];
+                
+                const cardHTML = `
+                    <a href="${item.LinkShopee}" target="_blank" class="glass-card rounded-[1.25rem] p-3 relative flex flex-col items-center text-center fade-up group overflow-visible">
+                        
+                        <!-- Huy hiệu số cực nổi -->
+                        <div class="absolute -top-3 -left-3 w-9 h-9 ${colorClass} rounded-full flex items-center justify-center font-black text-[15px] border-2 border-white z-20 group-hover:scale-110 transition-transform">
+                            ${index + 1}
+                        </div>
+
+                        <!-- Vùng chứa ảnh -->
+                        <div class="w-full aspect-square rounded-[1rem] overflow-hidden mb-3 border-[3px] border-white/60 shadow-sm bg-white flex items-center justify-center relative">
+                            <img src="${item.LinkAnh}" alt="${item.Ten}" onerror="this.src='https://placehold.co/400x400/ffe4e1/ff69b4?text=Xinh+quá'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            
+                            <!-- Overlay CTA khi hover -->
+                            <div class="absolute inset-0 bg-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <i class="fas fa-shopping-bag text-white text-3xl drop-shadow-md"></i>
+                            </div>
+                        </div>
+
+                        <!-- Text nội dung -->
+                        <h3 class="font-black text-[13px] text-gray-800 leading-tight mb-1 group-hover:text-pink-600 transition-colors">${item.Ten}</h3>
+                        <p class="text-[11px] text-gray-500 font-bold mb-3">${item.MoTa}</p>
+                        
+                        <!-- Nút Chốt Đơn mượt mà -->
+                        <div class="mt-auto bg-gradient-to-r from-pink-400 to-rose-400 text-white text-[10px] tracking-wide uppercase font-black py-2 px-4 rounded-full w-full shadow-md group-hover:shadow-[0_4px_15px_rgba(244,114,182,0.5)] transform group-hover:-translate-y-0.5 transition-all duration-300">
+                            ✨ Mua Ngay
+                        </div>
+                    </a>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHTML);
+            });
+
+            setTimeout(() => { document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible')); }, 100);
+        }
+
+        // Tạo hiệu ứng Hoa & Tuyết
+        function createVisualEffects() {
+            // Bây giờ các hạt sẽ được thả vào khung panel giữa màn hình
+            const container = document.getElementById('visual-effects');
+            
+            // Lấy chiều cao/rộng của panel để giới hạn vị trí rơi (tránh lỗi thanh cuộn)
+            const panelWidth = container.offsetWidth;
+
+            // 1. Tạo Tuyết lấp lánh (Bling stars) - Giống ảnh mẫu
+            for (let i = 0; i < 40; i++) {
+                let star = document.createElement('div');
+                star.classList.add('bling-star');
+                let size = Math.random() * 3 + 1; // Nhỏ và xinh hơn
+                star.style.width = `${size}px`; 
+                star.style.height = `${size}px`;
+                
+                // Trải đều theo chiều ngang CỦA THẺ
+                star.style.left = `${Math.random() * 100}%`;
+                
+                // Màu sắc ngẫu nhiên nhẹ (trắng, vàng chanh, hồng nhạt) giống ảnh mẫu
+                const colors = ['#ffffff', '#fff5b5', '#ffccf2', '#aee5ff'];
+                star.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                star.style.animationDuration = `${Math.random() * 3 + 1.5}s, ${Math.random() * 8 + 4}s`; 
+                star.style.animationDelay = `-${Math.random() * 3}s, -${Math.random() * 8}s`;
+                container.appendChild(star);
+            }
+
+            // 2. Tạo Lá Sakura rơi
+            for (let i = 0; i < 20; i++) {
+                let petal = document.createElement('div');
+                petal.classList.add('sakura-petal');
+                let sizeW = Math.random() * 8 + 8; // Rộng 8-16px
+                let sizeH = Math.random() * 4 + 6; // Cao 6-10px
+                petal.style.width = `${sizeW}px`; 
+                petal.style.height = `${sizeH}px`;
+                petal.style.left = `${Math.random() * 100}vw`;
+                
+                let fallDuration = Math.random() * 10 + 8; // Rơi chậm 8-18s
+                let swayDuration = Math.random() * 3 + 2; // Đung đưa 2-5s
+                
+                petal.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
+                petal.style.animationDelay = `-${Math.random() * 10}s, -${Math.random() * 2}s`;
+                container.appendChild(petal);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            createVisualEffects();
+
+            // SỬA LỖI CACHE: Thêm timestamp vào link để luôn lấy data mới nhất
+            if (GOOGLE_SHEET_TSV_URL !== "") {
+                try {
+                    const noCacheUrl = GOOGLE_SHEET_TSV_URL + (GOOGLE_SHEET_TSV_URL.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+                    const response = await fetch(noCacheUrl);
+                    const tsvData = await response.text();
+                    products = parseTSV(tsvData);
+                } catch(e) {
+                    console.error("Lỗi tải data, dùng fallback", e);
+                }
+            }
+            renderProducts(products);
+        });
+    </script>
+</body>
+</html>
