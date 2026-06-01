@@ -21,47 +21,54 @@
             }
         }
     </script>
-
+    
     <style>
-        /* Đưa màu nền bên ngoài về tông trung tính sáng hoặc trong suốt nhẹ để làm nổi bật chiếc thẻ ở giữa */
-        body {
-            background-color: #f8f9fa; /* Màu nền nhạt, sạch sẽ ở ngoài cùng */
-            font-family: 'Nunito', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            overflow-x: hidden;
+        /* Thẻ kính chứa toàn bộ nội dung */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* Bỏ backdrop-filter ở đây để màu nền bên trong hiển thị rõ nhất */
         }
 
-        /* Tông màu nền cực kỳ mộng mơ giống ảnh mẫu (Holographic Pastel), NHƯNG ĐƯA VÀO TRONG THẺ */
-        .holographic-bg {
-            background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 50%, #ffecd2 100%);
-            background-size: 200% 200%;
-            animation: gradientBG 8s ease infinite;
+        /* NỀN VÀNG WATERCOLOR Y HỆT ẢNH MẪU BÊN TRONG THẺ */
+        .watercolor-bg {
+            background: #fffdf2; 
             position: absolute;
             inset: 0;
             z-index: 0;
-            opacity: 0.8;
-            /* Thêm hiệu ứng nhiễu nhẹ (noise) để giống ảnh mẫu hơn */
-            filter: contrast(1.1) brightness(1.05);
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Thêm độ nhám (texture) của giấy vẽ màu nước */
+        .watercolor-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/watercolor.png');
+            opacity: 0.4;
+            mix-blend-mode: multiply;
         }
 
-        /* Glassmorphism cực trong trẻo - Áp dụng cho Panel chính chứa mọi thứ */
-        .glass-panel {
-            /* Loại bỏ background trắng mờ cũ, để nền holographic hiện lên */
-            background: transparent;
-            /* Box shadow nhẹ nhàng để tách thẻ khỏi nền body */
-            box-shadow: 0 15px 50px -5px rgba(0, 0, 0, 0.1), 0 8px 20px -6px rgba(0, 0, 0, 0.1);
+        /* Các vệt loang màu vàng đậm nhạt (như vệt cọ vẽ) */
+        .watercolor-blob-1 {
+            position: absolute;
+            top: -5%; left: -20%;
+            width: 100%; height: 60%;
+            background: radial-gradient(ellipse, #ffe57f 0%, transparent 60%);
+            opacity: 0.7;
+            filter: blur(40px);
+        }
+        
+        .watercolor-blob-2 {
+            position: absolute;
+            bottom: -10%; right: -20%;
+            width: 120%; height: 60%;
+            background: radial-gradient(ellipse, #ffd54f 0%, transparent 60%);
+            opacity: 0.5;
+            filter: blur(50px);
         }
 
-        /* Các thẻ con bên trong (Avatar, Sản phẩm) cần có nền kính riêng biệt để đọc chữ rõ ràng */
+        /* Lớp kính mờ cho các thành phần con để chữ dễ đọc trên nền vàng */
         .glass-content-card {
             background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(12px);
@@ -71,7 +78,7 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.5); /* Đậm hơn nền tổng thể một chút */
+            background: rgb(60 214 239 / 47%); /* Đậm hơn nền tổng thể một chút */
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.9);
@@ -147,22 +154,22 @@
         }
     </style>
 </head>
-<body class="text-gray-800 antialiased p-4 sm:p-8 relative">
-
-    <main class="w-full max-w-md mx-auto relative z-10">
+<body class="text-gray-800 antialiased sm:p-8 relative">
+    <main class="w-full max-w-md mx-auto relative">
         
-        <!-- THẺ TRUNG TÂM - GIỜ ĐÂY CHỨA TOÀN BỘ HIỆU ỨNG -->
-        <div class="glass-panel rounded-[2.5rem] p-6 pb-10 relative overflow-hidden ">
+        <!-- THẺ KHUNG CHÍNH (Chứa mọi hiệu ứng) -->
+        <div class="glass-panel rounded-[2.5rem] p-6 pb-10 relative overflow-hidden min-h-[90vh]">
             
-            <!-- 1. NỀN HOLOGRAPHIC (Chỉ nằm gọn trong thẻ) -->
-            <div class="holographic-bg"></div>
-            
-            <!-- 2. CONTAINER CHỨA TUYẾT & HOA (Chỉ nằm gọn trong thẻ) -->
-            <div id="visual-effects" class="absolute inset-0 pointer-events-none z-0"></div>
+            <!-- NỀN WATERCOLOR (Thay thế cho nền ánh vàng cũ) -->
+            <div class="absolute inset-0 watercolor-bg z-0">
+                <div class="watercolor-blob-1"></div>
+                <div class="watercolor-blob-2"></div>
+            </div>
 
-            <!-- Blobs trang trí tạo khối mờ đằng sau (tùy chọn, có thể bỏ nếu nền holographic đủ đẹp) -->
-            <div class="absolute top-[-10%] left-[-10%] w-48 h-48 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-70 animate-pulse z-0"></div>
+            <!-- Vùng chứa Bling Bling (Bị nhốt trong thẻ) -->
+            <div id="visual-effects" class="absolute inset-0 pointer-events-none overflow-hidden z-0"></div>
 
+            <!-- NỘI DUNG CHÍNH -->
             <!-- HEADER -->
             <header class="flex flex-col items-center text-center mt-2 mb-8 relative z-10 fade-up">
                 <div class="relative avatar-float mb-5 mt-2">
