@@ -299,28 +299,8 @@
             // Lấy chiều cao/rộng của panel để giới hạn vị trí rơi (tránh lỗi thanh cuộn)
             const panelWidth = container.offsetWidth;
 
-            // 1. Tạo Tuyết lấp lánh (Bling stars) - Giống ảnh mẫu
-            for (let i = 0; i < 40; i++) {
-                let star = document.createElement('div');
-                star.classList.add('bling-star');
-                let size = Math.random() * 3 + 1; // Nhỏ và xinh hơn
-                star.style.width = `${size}px`; 
-                star.style.height = `${size}px`;
-                
-                // Trải đều theo chiều ngang CỦA THẺ
-                star.style.left = `${Math.random() * 100}%`;
-                
-                // Màu sắc ngẫu nhiên nhẹ (trắng, vàng chanh, hồng nhạt) giống ảnh mẫu
-                const colors = ['#ffffff', '#fff5b5', '#ffccf2', '#aee5ff'];
-                star.style.background = colors[Math.floor(Math.random() * colors.length)];
-                
-                star.style.animationDuration = `${Math.random() * 3 + 1.5}s, ${Math.random() * 8 + 4}s`; 
-                star.style.animationDelay = `-${Math.random() * 3}s, -${Math.random() * 8}s`;
-                container.appendChild(star);
-            }
-
             // 2. Tạo Lá Sakura rơi
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 let petal = document.createElement('div');
                 petal.classList.add('sakura-petal');
                 let sizeW = Math.random() * 8 + 8; // Rộng 8-16px
