@@ -78,11 +78,16 @@
         }
 
         .glass-card {
-            background: rgb(60 214 239 / 47%); /* Đậm hơn nền tổng thể một chút */
+            background: rgb(60 214 239 / 47%); /* Màu xanh cyan cho trang chủ */
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.9);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Thẻ sản phẩm trong trang danh mục dùng màu hồng */
+        #category-view .glass-card {
+            background: rgb(236 178 185 / 82%);
         }
 
         /* Hover Glow Effect cho thẻ sản phẩm */
@@ -170,43 +175,87 @@
             <div id="visual-effects" class="absolute inset-0 pointer-events-none overflow-hidden z-0"></div>
 
             <!-- NỘI DUNG CHÍNH -->
-            <!-- HEADER -->
-            <header class="flex flex-col items-center text-center mt-2 mb-8 relative z-10 fade-up">
-                <div class="relative avatar-float mb-5 mt-2">
-                    <!-- Mình thêm viền glow màu hồng cho Avatar -->
-                    <img src="avatar.jpeg" alt="Avatar" class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-[0_0_25px_rgba(255,154,158,0.6)]">
-                    <div class="absolute -bottom-2 -right-3 bg-gradient-to-r from-pink-300 to-purple-300 text-white text-[13px] font-black px-3 py-1.5 rounded-full border-2 border-white shadow-lg transform rotate-12">
-                        ✨ Hello!
+            <!-- VIEW 1: TRANG CHỦ -->
+            <div id="home-view" class="relative z-10 transition-all duration-300">
+                <!-- HEADER -->
+                <header class="flex flex-col items-center text-center mt-2 mb-8 relative z-10 fade-up">
+                    <div class="relative avatar-float mb-5 mt-2">
+                        <!-- Mình thêm viền glow màu hồng cho Avatar -->
+                        <img src="avatar.jpeg" alt="Avatar" class="w-32 h-32 object-cover rounded-full border-4 border-white shadow-[0_0_25px_rgba(255,154,158,0.6)]">
+                        <div class="absolute -bottom-2 -right-3 bg-gradient-to-r from-pink-300 to-purple-300 text-white text-[13px] font-black px-3 py-1.5 rounded-full border-2 border-white shadow-lg transform rotate-12">
+                            ✨ Hello!
+                        </div>
+                    </div>
+
+                    <h1 class="text-3xl font-black tracking-tight mb-2 text-gray-800 drop-shadow-sm">@Qthichmuado</h1>
+                    <p class="text-[15px] font-bold text-gray-700 mb-5 px-4 leading-relaxed glass-content-card py-1.5 rounded-2xl shadow-sm">
+                        Những món toai hay dùng nè 🎀
+                    </p>
+
+                    <!-- Social Icons cực bốc -->
+                    <div class="flex gap-4 mb-2">
+                        <a href="https://www.tiktok.com/@qthichmuado" class="w-11 h-11 rounded-full bg-gradient-to-tr from-gray-900 to-gray-700 flex items-center justify-center text-xl text-white hover:scale-110 transition-transform shadow-md hover:shadow-[0_0_15px_rgba(0,0,0,0.3)]"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100076179219794&locale=vi_VN" class="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-600 to-blue-400 flex items-center justify-center text-xl text-white hover:scale-110 transition-transform shadow-md hover:shadow-[0_0_15px_rgba(37,99,235,0.4)]"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </header>
+
+                <!-- LƯỚI SẢN PHẨM -->
+                <div class="relative">
+                    <div class="flex items-center justify-center gap-3 mb-6 fade-up">
+                        <div class="h-[2px] w-10 bg-gradient-to-r from-transparent to-white/70 rounded-full"></div>
+                        <span class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-700 glass-content-card px-3 py-1 rounded-full">Món Đồ Chân Ái</span>
+                        <div class="h-[2px] w-10 bg-gradient-to-l from-transparent to-white/70 rounded-full"></div>
+                    </div>
+
+                    <!-- Vùng chứa Grid 2 cột -->
+                    <div id="product-grid" class="grid grid-cols-2 gap-4">
+                        <!-- Loading state đẹp hơn -->
+                        <div class="col-span-2 flex flex-col items-center justify-center py-8 text-pink-500 fade-up">
+                            <i class="fas fa-heart fa-beat text-3xl mb-2 text-pink-400"></i>
+                            <span class="text-sm font-bold animate-pulse">Đang mang đồ xinh ra kệ...</span>
+                        </div>
                     </div>
                 </div>
 
-                <h1 class="text-3xl font-black tracking-tight mb-2 text-gray-800 drop-shadow-sm">@Qthichmuado</h1>
-                <p class="text-[15px] font-bold text-gray-700 mb-5 px-4 leading-relaxed glass-content-card py-1.5 rounded-2xl shadow-sm">
-                    Những món toai hay dùng nè 🎀
-                </p>
-
-                <!-- Social Icons cực bốc -->
-                <div class="flex gap-4 mb-2">
-                    <a href="https://www.tiktok.com/@qthichmuado" class="w-11 h-11 rounded-full bg-gradient-to-tr from-gray-900 to-gray-700 flex items-center justify-center text-xl text-white hover:scale-110 transition-transform shadow-md hover:shadow-[0_0_15px_rgba(0,0,0,0.3)]"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=100076179219794&locale=vi_VN" class="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-600 to-blue-400 flex items-center justify-center text-xl text-white hover:scale-110 transition-transform shadow-md hover:shadow-[0_0_15px_rgba(37,99,235,0.4)]"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </header>
-
-            <!-- LƯỚI SẢN PHẨM -->
-            <div class="relative z-10">
-                <div class="flex items-center justify-center gap-3 mb-6 fade-up">
-                    <div class="h-[2px] w-10 bg-gradient-to-r from-transparent to-white/70 rounded-full"></div>
-                    <span class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-700 glass-content-card px-3 py-1 rounded-full">Món Đồ Chân Ái</span>
-                    <div class="h-[2px] w-10 bg-gradient-to-l from-transparent to-white/70 rounded-full"></div>
-                </div>
-
-                <!-- Vùng chứa Grid 2 cột -->
-                <div id="product-grid" class="grid grid-cols-2 gap-4">
-                    <!-- Loading state đẹp hơn -->
-                    <div class="col-span-2 flex flex-col items-center justify-center py-8 text-pink-500 fade-up">
-                        <i class="fas fa-heart fa-beat text-3xl mb-2 text-pink-400"></i>
-                        <span class="text-sm font-bold animate-pulse">Đang mang đồ xinh ra kệ...</span>
+                <!-- DANH MỤC SẢN PHẨM -->
+                <div id="categories-section" class="mt-10 relative">
+                    <div class="flex items-center justify-center gap-3 mb-6 fade-up">
+                        <div class="h-[2px] w-10 bg-gradient-to-r from-transparent to-white/70 rounded-full"></div>
+                        <span class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-700 glass-content-card px-3 py-1 rounded-full">🌟 Danh Mục Nổi Bật</span>
+                        <div class="h-[2px] w-10 bg-gradient-to-l from-transparent to-white/70 rounded-full"></div>
                     </div>
+
+                    <div id="category-grid" class="flex flex-col gap-4">
+                        <!-- Loading state -->
+                        <div class="flex flex-col items-center justify-center py-6 text-pink-500 fade-up">
+                            <i class="fas fa-heart fa-beat text-2xl mb-2 text-pink-400"></i>
+                            <span class="text-xs font-bold animate-pulse">Đang chuẩn bị danh mục...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- VIEW 2: CHI TIẾT NHÓM -->
+            <div id="category-view" class="relative z-10 hidden transition-all duration-300">
+                <!-- Background ảnh bg1.jpg -->
+                <div class="absolute inset-0 z-0 overflow-hidden" style="min-height: 100%;">
+                    <img src="bg1.jpg" alt="" class="w-full h-full object-cover" style="position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover;">
+                    <div class="absolute inset-0 bg-white/30" style="position:fixed; top:0; left:0; width:100%; height:100%;"></div>
+                </div>
+
+                <header class="flex flex-col items-center text-center mt-2 mb-8 relative z-10 fade-up">
+                    <button onclick="showHomeView()" class="mb-5 bg-white/60 hover:bg-white text-gray-800 font-bold px-4 py-2 rounded-full border border-white/80 shadow-sm flex items-center gap-2 hover:scale-105 transition-all text-xs">
+                        <i class="fas fa-arrow-left text-pink-400"></i> Quay lại trang chủ
+                    </button>
+                    <h2 id="category-title" class="text-3xl font-black tracking-tight mb-2 text-gray-800 drop-shadow-sm uppercase">Danh Mục</h2>
+                    <p class="text-[15px] font-bold text-gray-700 mb-5 px-4 leading-relaxed glass-content-card py-1.5 rounded-2xl shadow-sm">
+                        Danh sách sản phẩm gợi ý 🎀
+                    </p>
+                </header>
+
+                <div id="category-product-grid" class="grid grid-cols-2 gap-4 relative z-10">
+                    <!-- Products of this category will render here -->
                 </div>
             </div>
             
@@ -219,14 +268,22 @@
     <script>
         // Link Google Sheet của bạn
         const GOOGLE_SHEET_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTeaTZaKLHjxkgO8lvKmtT64EBlErX9mf8l5xipn9anrxtLZUib2WFJD6fX5HrTzCBEqDrkVj0Al1xz/pub?output=tsv"; 
+        const GOOGLE_SHEET_GROUPS_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTeaTZaKLHjxkgO8lvKmtT64EBlErX9mf8l5xipn9anrxtLZUib2WFJD6fX5HrTzCBEqDrkVj0Al1xz/pub?gid=385251534&single=true&output=tsv"; 
 
-        // Data dự phòng
+        // Data dự phòng khi chạy thử trực tiếp (hoặc khi mất kết nối mạng)
         let products = [
-            { Ten: "Đang tải dữ liệu...", MoTa: "Vui lòng đợi xíu nha", LinkAnh: "", LinkShopee: "#" }
+            { Ten: "Bìa còng trong suốt (Mẫu)", MoTa: "Nhấn để mua qua Shopee nha", LinkAnh: "https://down-vn.img.susercontent.com/file/vn-11134207-7ra0g-m9zfor20733i9f.webp", LinkShopee: "https://s.shopee.vn/3B4jLTuLLS" },
+            { Ten: "Túi refill CeraVe (Mẫu)", MoTa: "Nhấn để mua qua Shopee nha", LinkAnh: "https://down-vn.img.susercontent.com/file/sg-11134201-825an-mr00u8btxb7l04.webp", LinkShopee: "https://s.shopee.vn/6VMWf0FqWB" }
+        ];
+        let groupProducts = [
+            { Ten: "Bìa còng trong suốt (Mẫu)", DanhMuc: "Gia dụng", MoTa: "Nhấn để mua qua Shopee nha", LinkAnh: "https://down-vn.img.susercontent.com/file/vn-11134207-7ra0g-m9zfor20733i9f.webp", LinkShopee: "https://s.shopee.vn/3B4jLTuLLS" },
+            { Ten: "Túi refill CeraVe (Mẫu)", DanhMuc: "Chăm sóc cá nhân", MoTa: "Nhấn để mua qua Shopee nha", LinkAnh: "https://down-vn.img.susercontent.com/file/sg-11134201-825an-mr00u8btxb7l04.webp", LinkShopee: "https://s.shopee.vn/6VMWf0FqWB" }
         ];
 
         function parseTSV(tsv) {
-            const lines = tsv.split('\n');
+            // Loại bỏ ký tự \r để tránh lỗi trên một số hệ điều hành
+            const cleanTsv = tsv.replace(/\r/g, '');
+            const lines = cleanTsv.split('\n');
             const headers = lines[0].split('\t').map(h => h.trim());
             const result = [];
             for(let i=1; i<lines.length; i++) {
@@ -288,18 +345,180 @@
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
 
-            setTimeout(() => { document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible')); }, 100);
+            setTimeout(() => { document.querySelectorAll('#home-view .fade-up').forEach(el => el.classList.add('visible')); }, 100);
+        }
+
+        // Bộ màu gradient hồng pastel đồng bộ
+        const categoryGradients = [
+            'from-[#F5A0B8] to-[#F48FB1]',
+            'from-[#F48FB1] to-[#EC407A]',
+            'from-[#F8BBD0] to-[#F06292]',
+            'from-[#FCE4EC] via-[#F48FB1] to-[#EC407A]',
+            'from-[#F5A0B8] to-[#E91E63]',
+            'from-[#F8BBD0] to-[#F48FB1]'
+        ];
+
+        function renderCategories(items) {
+            const grid = document.getElementById('category-grid');
+            grid.innerHTML = '';
+            
+            // Nhóm sản phẩm theo danh mục và lấy ảnh đầu tiên làm đại diện
+            const categoriesMap = {};
+            items.forEach(item => {
+                if (!item.DanhMuc) return;
+                const cat = item.DanhMuc.trim();
+                if (!categoriesMap[cat]) {
+                    categoriesMap[cat] = {
+                        name: cat,
+                        count: 0,
+                        images: []
+                    };
+                }
+                categoriesMap[cat].count++;
+                if (item.LinkAnh && categoriesMap[cat].images.length < 3) {
+                    categoriesMap[cat].images.push(item.LinkAnh);
+                }
+            });
+            
+            const categories = Object.values(categoriesMap);
+            
+            if (categories.length === 0) {
+                grid.innerHTML = `
+                    <div class="text-center py-6 text-gray-500 text-xs font-bold glass-card rounded-[1.25rem] p-4">
+                        Chưa có danh mục nào được hiển thị 🌸
+                    </div>
+                `;
+                return;
+            }
+            
+            categories.forEach((cat, index) => {
+                const gradient = categoryGradients[index % categoryGradients.length];
+                const mainImg = cat.images[0] || 'https://placehold.co/400x400/ffe4e1/ff69b4?text=' + encodeURIComponent(cat.name);
+                
+                // Tạo mini thumbnails preview (tối đa 3 ảnh nhỏ xếp chồng)
+                let thumbsHTML = '';
+                cat.images.slice(0, 3).forEach((img, i) => {
+                    thumbsHTML += `<img src="${img}" class="w-7 h-7 rounded-full border-2 border-white object-cover shadow-sm ${i > 0 ? '-ml-2' : ''}" onerror="this.style.display='none'">`;
+                });
+                
+                const cardHTML = `
+                    <div onclick="showCategoryView('${cat.name.replace(/'/g, "\\'")}')" class="glass-card rounded-[1.25rem] relative flex items-stretch cursor-pointer group overflow-hidden fade-up min-h-[110px]">
+                        
+                        <!-- Ảnh bên trái -->
+                        <div class="w-[110px] min-w-[110px] relative overflow-hidden">
+                            <img src="${mainImg}" alt="${cat.name}" onerror="this.src='https://placehold.co/400x400/ffe4e1/ff69b4?text=${encodeURIComponent(cat.name)}'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <!-- Gradient overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-r ${gradient} opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        </div>
+                        
+                        <!-- Nội dung bên phải -->
+                        <div class="flex-1 p-3.5 flex flex-col justify-center">
+                            <h3 class="font-black text-[15px] text-gray-800 leading-tight group-hover:text-[#EC407A] transition-colors mb-1.5">${cat.name}</h3>
+                            <p class="text-[11px] text-gray-500 font-bold mb-2.5">${cat.count} sản phẩm gợi ý</p>
+                            
+                            <div class="flex items-center justify-between">
+                                <!-- Mini thumbnail preview -->
+                                <div class="flex items-center">
+                                    ${thumbsHTML}
+                                </div>
+                                
+                                <!-- Nút Xem -->
+                                <div class="bg-gradient-to-r from-[#F5A0B8] to-[#EC407A] text-white text-[11px] font-black px-5 py-2 rounded-full flex items-center gap-1.5 group-hover:shadow-[0_4px_15px_rgba(236,64,122,0.4)] group-hover:scale-105 transition-all duration-300">
+                                    Xem ngay <i class="fas fa-arrow-right text-[8px]"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHTML);
+            });
+            
+            setTimeout(() => { document.querySelectorAll('#categories-section .fade-up').forEach(el => el.classList.add('visible')); }, 150);
+        }
+
+        function showCategoryView(categoryName) {
+            const homeView = document.getElementById('home-view');
+            const categoryView = document.getElementById('category-view');
+            
+            homeView.classList.add('hidden');
+            categoryView.classList.remove('hidden');
+            
+            document.getElementById('category-title').innerText = categoryName;
+            
+            const grid = document.getElementById('category-product-grid');
+            grid.innerHTML = '';
+            
+            const filteredProducts = groupProducts.filter(item => item.DanhMuc && item.DanhMuc.trim() === categoryName);
+            
+            const badgeColors = [
+                'bg-pink-400 text-white shadow-[0_0_10px_rgba(244,114,182,0.6)]', 
+                'bg-purple-400 text-white shadow-[0_0_10px_rgba(192,132,252,0.6)]', 
+                'bg-rose-400 text-white shadow-[0_0_10px_rgba(251,113,133,0.6)]', 
+                'bg-fuchsia-400 text-white shadow-[0_0_10px_rgba(232,121,249,0.6)]'
+            ];
+
+            filteredProducts.forEach((item, index) => {
+                if(!item.Ten) return; 
+                const colorClass = badgeColors[index % badgeColors.length];
+                
+                const cardHTML = `
+                    <a href="${item.LinkShopee}" target="_blank" class="glass-card rounded-[1.25rem] p-3 relative flex flex-col items-center text-center fade-up group overflow-visible">
+                        <!-- Huy hiệu số cực nổi -->
+                        <div class="absolute -top-3 -left-3 w-9 h-9 ${colorClass} rounded-full flex items-center justify-center font-black text-[15px] border-2 border-white z-20 group-hover:scale-110 transition-transform">
+                            ${index + 1}
+                        </div>
+
+                        <!-- Vùng chứa ảnh -->
+                        <div class="w-full aspect-square rounded-[1rem] overflow-hidden mb-3 border-[3px] border-white/60 shadow-sm bg-white flex items-center justify-center relative">
+                            <img src="${item.LinkAnh}" alt="${item.Ten}" onerror="this.src='https://placehold.co/400x400/ffe4e1/ff69b4?text=Xinh+quá'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            
+                            <!-- Overlay CTA khi hover -->
+                            <div class="absolute inset-0 bg-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <i class="fas fa-shopping-bag text-white text-3xl drop-shadow-md"></i>
+                            </div>
+                        </div>
+
+                        <!-- Text nội dung -->
+                        <h3 class="font-black text-[13px] text-gray-800 leading-tight mb-1 group-hover:text-pink-600 transition-colors">${item.Ten}</h3>
+                        <p class="text-[11px] text-gray-500 font-bold mb-3">${item.MoTa}</p>
+                        
+                        <!-- Nút Chốt Đơn mượt mà -->
+                        <div class="mt-auto bg-gradient-to-r from-[#FFE600] to-[#FFB800] text-gray-900 text-[10px] tracking-wide uppercase font-black py-2 px-4 rounded-full w-full shadow-md group-hover:shadow-[0_4px_15px_rgba(255,184,0,0.5)] transform group-hover:-translate-y-0.5 transition-all duration-300">
+                            ✨ Mua Ngay
+                        </div>
+                    </a>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHTML);
+            });
+
+            // Reset animations
+            categoryView.querySelectorAll('.fade-up').forEach(el => el.classList.remove('visible'));
+            setTimeout(() => {
+                categoryView.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50);
+        }
+
+        function showHomeView() {
+            const homeView = document.getElementById('home-view');
+            const categoryView = document.getElementById('category-view');
+            
+            categoryView.classList.add('hidden');
+            homeView.classList.remove('hidden');
+            
+            homeView.querySelectorAll('.fade-up').forEach(el => el.classList.remove('visible'));
+            setTimeout(() => {
+                homeView.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50);
         }
 
         // Tạo hiệu ứng Hoa & Tuyết
         function createVisualEffects() {
-            // Bây giờ các hạt sẽ được thả vào khung panel giữa màn hình
             const container = document.getElementById('visual-effects');
-            
-            // Lấy chiều cao/rộng của panel để giới hạn vị trí rơi (tránh lỗi thanh cuộn)
             const panelWidth = container.offsetWidth;
 
-            // 2. Tạo Lá Sakura rơi
+            // Tạo Lá Sakura rơi
             for (let i = 0; i < 15; i++) {
                 let petal = document.createElement('div');
                 petal.classList.add('sakura-petal');
@@ -321,18 +540,36 @@
         document.addEventListener("DOMContentLoaded", async () => {
             createVisualEffects();
 
-            // SỬA LỖI CACHE: Thêm timestamp vào link để luôn lấy data mới nhất
-            if (GOOGLE_SHEET_TSV_URL !== "") {
-                try {
-                    const noCacheUrl = GOOGLE_SHEET_TSV_URL + (GOOGLE_SHEET_TSV_URL.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
-                    const response = await fetch(noCacheUrl);
-                    const tsvData = await response.text();
-                    products = parseTSV(tsvData);
-                } catch(e) {
-                    console.error("Lỗi tải data, dùng fallback", e);
+            const fetch1 = async () => {
+                if (GOOGLE_SHEET_TSV_URL !== "") {
+                    try {
+                        const noCacheUrl = GOOGLE_SHEET_TSV_URL + (GOOGLE_SHEET_TSV_URL.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+                        const response = await fetch(noCacheUrl);
+                        const tsvData = await response.text();
+                        products = parseTSV(tsvData);
+                    } catch(e) {
+                        console.error("Lỗi tải data 1, dùng fallback", e);
+                    }
                 }
-            }
+            };
+
+            const fetch2 = async () => {
+                if (GOOGLE_SHEET_GROUPS_TSV_URL !== "") {
+                    try {
+                        const noCacheUrl = GOOGLE_SHEET_GROUPS_TSV_URL + (GOOGLE_SHEET_GROUPS_TSV_URL.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+                        const response = await fetch(noCacheUrl);
+                        const tsvData = await response.text();
+                        groupProducts = parseTSV(tsvData);
+                    } catch(e) {
+                        console.error("Lỗi tải data 2, dùng fallback", e);
+                    }
+                }
+            };
+
+            await Promise.all([fetch1(), fetch2()]);
+
             renderProducts(products);
+            renderCategories(groupProducts);
         });
     </script>
 </body>
